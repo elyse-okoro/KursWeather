@@ -48,4 +48,10 @@ class DefaultAppContainer(private val context: Context) : AppContainer {
     override val settingsRepository: SettingsRepository by lazy {
         DataStoreSettingsRepository(context.settingsDataStore)
     }
+
+    override val isCityApiConfigured: Boolean =
+        BuildConfig.API_NINJAS_KEY.isNotBlank() && BuildConfig.API_NINJAS_KEY != DEFAULT_API_KEY
 }
+
+/** Заглушка из local.defaults.properties: ключ не задан. */
+private const val DEFAULT_API_KEY = "DEFAULT_API_KEY"

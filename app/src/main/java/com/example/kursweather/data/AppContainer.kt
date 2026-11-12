@@ -9,4 +9,7 @@ interface AppContainer {
     val cityRepository: CityRepository
     val weatherRepository: WeatherRepository
     val settingsRepository: SettingsRepository
+
+    /** false, если в local.properties не задан ключ API Ninjas и поиск городов не заработает. */
+    val isCityApiConfigured: Boolean
 }

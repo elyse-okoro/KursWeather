@@ -1,0 +1,80 @@
+<resources>
+    <string name="app_name">Погода</string>
+
+    <string name="title_search">Новый город</string>
+    <string name="title_forecast">Прогноз</string>
+    <string name="title_settings">Настройки</string>
+
+    <string name="action_add_city">Добавить город</string>
+    <string name="action_add">Добавить</string>
+    <string name="action_search">Найти</string>
+    <string name="action_back">Назад</string>
+    <string name="action_settings">Настройки</string>
+    <string name="action_refresh">Обновить прогноз</string>
+    <string name="action_retry">Повторить</string>
+    <string name="action_undo">Отменить</string>
+    <string name="action_remove_city">Убрать город %1$s из списка</string>
+
+    <string name="message_no_cities">Городов пока нет. Добавьте город, чтобы увидеть погоду.</string>
+    <string name="message_loading_weather">Загружаем погоду…</string>
+    <string name="message_weather_unavailable">Погода недоступна, потяните список вниз</string>
+    <string name="message_city_removed">Город %1$s удалён</string>
+    <string name="message_city_not_found">По запросу «%1$s» ничего не нашлось. Проверьте написание или введите название по-английски.</string>
+
+    <string name="search_label">Название города</string>
+    <string name="search_hint">По-русски или по-английски, например Ижевск или Kazan</string>
+    <string name="city_population">Население: %1$s</string>
+    <string name="city_coordinates">%1$.2f°, %2$.2f°</string>
+    <string name="city_summary">%1$s · %2$s / %3$s</string>
+
+    <string name="section_hourly">Ближайшие 24 часа</string>
+    <string name="section_daily">Прогноз на %1$d дней</string>
+    <string name="feels_like">Ощущается как %1$s</string>
+    <string name="detail_humidity">Влажность</string>
+    <string name="detail_wind">Ветер</string>
+    <string name="detail_pressure">Давление</string>
+    <string name="detail_daylight">Восход и закат</string>
+    <string name="sunrise_sunset">%1$s – %2$s</string>
+    <string name="day_today">Сегодня</string>
+    <string name="day_tomorrow">Завтра</string>
+
+    <string name="temperature_value">%1$s°</string>
+    <string name="unit_celsius">°C</string>
+    <string name="unit_fahrenheit">°F</string>
+    <string name="percent_value">%1$d%%</string>
+    <string name="no_value">—</string>
+    <string name="wind_speed_ms">%1$s м/с</string>
+    <string name="wind_speed_kmh">%1$s км/ч</string>
+    <string name="pressure_hpa">%1$d гПа</string>
+    <string name="pressure_mm_hg">%1$d мм рт. ст.</string>
+
+    <string name="settings_temperature">Температура</string>
+    <string name="settings_wind">Скорость ветра</string>
+    <string name="option_celsius">Градусы Цельсия, °C</string>
+    <string name="option_fahrenheit">Градусы Фаренгейта, °F</string>
+    <string name="option_meters_per_second">Метры в секунду</string>
+    <string name="option_kilometers_per_hour">Километры в час</string>
+    <string name="settings_data_sources">Прогноз: Open-Meteo.com (CC BY 4.0). Координаты городов: API Ninjas.</string>
+
+    <string name="condition_clear">Ясно</string>
+    <string name="condition_mainly_clear">Малооблачно</string>
+    <string name="condition_partly_cloudy">Переменная облачность</string>
+    <string name="condition_overcast">Пасмурно</string>
+    <string name="condition_fog">Туман</string>
+    <string name="condition_drizzle">Морось</string>
+    <string name="condition_freezing_drizzle">Ледяная морось</string>
+    <string name="condition_rain">Дождь</string>
+    <string name="condition_freezing_rain">Ледяной дождь</string>
+    <string name="condition_snow">Снег</string>
+    <string name="condition_rain_showers">Ливень</string>
+    <string name="condition_snow_showers">Снегопад</string>
+    <string name="condition_thunderstorm">Гроза</string>
+    <string name="condition_unknown">Нет данных</string>
+
+    <string name="error_no_internet">Нет подключения к интернету. Проверьте сеть и повторите.</string>
+    <string name="error_server">Сервис погоды не отвечает. Попробуйте чуть позже.</string>
+    <string name="error_unknown">Что-то пошло не так. Попробуйте ещё раз.</string>
+    <string name="error_api_key_missing">Для поиска городов нужен ключ API Ninjas: добавьте API_NINJAS_KEY в local.properties (см. README).</string>
+    <string name="error_api_key_invalid">API Ninjas не принял ключ. Проверьте API_NINJAS_KEY в local.properties.</string>
+    <string name="error_city_not_found">Этого города больше нет в списке.</string>
+</resources>

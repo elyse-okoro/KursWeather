@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- в русском интерфейсе давление показываем в мм рт. ст., как в привычных прогнозах -->
+    <bool name="pressure_in_mm_hg">false</bool>
+</resources>
