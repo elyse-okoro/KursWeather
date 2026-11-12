@@ -67,6 +67,7 @@ fun CurrentWeatherCard(
                 )
             }
             Spacer(modifier = Modifier.height(dimensionResource(R.dimen.padding_medium)))
+            // сетка 2 × 2: «765 мм рт. ст.» не помещалось в треть ширины и переносилось
             Row(horizontalArrangement = Arrangement.spacedBy(dimensionResource(R.dimen.padding_medium))) {
                 WeatherDetail(
                     iconRes = R.drawable.ic_opacity,
@@ -80,22 +81,27 @@ fun CurrentWeatherCard(
                     value = windSpeedText(current.windSpeed, windSpeedUnit),
                     modifier = Modifier.weight(1f)
                 )
+            }
+            Spacer(modifier = Modifier.height(dimensionResource(R.dimen.padding_small)))
+            Row(horizontalArrangement = Arrangement.spacedBy(dimensionResource(R.dimen.padding_medium))) {
                 WeatherDetail(
                     iconRes = R.drawable.ic_speed,
                     label = stringResource(R.string.detail_pressure),
                     value = pressureText(current.pressureHpa),
                     modifier = Modifier.weight(1f)
                 )
-            }
-            val sunrise = today?.sunrise
-            val sunset = today?.sunset
-            if (sunrise != null && sunset != null) {
-                Spacer(modifier = Modifier.height(dimensionResource(R.dimen.padding_medium)))
-                WeatherDetail(
-                    iconRes = R.drawable.ic_sunrise,
-                    label = stringResource(R.string.detail_daylight),
-                    value = stringResource(R.string.sunrise_sunset, timeText(sunrise), timeText(sunset))
-                )
+                val sunrise = today?.sunrise
+                val sunset = today?.sunset
+                if (sunrise != null && sunset != null) {
+                    WeatherDetail(
+                        iconRes = R.drawable.ic_sunrise,
+                        label = stringResource(R.string.detail_daylight),
+                        value = stringResource(R.string.sunrise_sunset, timeText(sunrise), timeText(sunset)),
+                        modifier = Modifier.weight(1f)
+                    )
+                } else {
+                    Spacer(modifier = Modifier.weight(1f))
+                }
             }
         }
     }
