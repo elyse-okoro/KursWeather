@@ -29,6 +29,6 @@ class FakeWeatherRepository : WeatherRepository {
         requests++
         lastSettings = settings
         error?.let { throw it }
-        return TestWeather.summary()
+        return TestWeather.summary(settings)
     }
 }

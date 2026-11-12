@@ -15,13 +15,18 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -39,9 +44,22 @@ fun ForecastScreen(
     viewModel: ForecastViewModel = viewModel(factory = AppViewModelProvider.Factory)
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+    val snackbarHostState = remember { SnackbarHostState() }
+    // прогноз уже на экране, а обновить его не удалось: показываем сообщение поверх, старые данные остаются
+    val refreshError = uiState.errorRes?.takeIf { uiState.forecast != null }?.let { stringResource(it) }
+
+    LaunchedEffect(refreshError) {
+        if (refreshError == null) return@LaunchedEffect
+        try {
+            snackbarHostState.showSnackbar(refreshError)
+        } finally {
+            viewModel.onErrorShown()
+        }
+    }
 
     Scaffold(
         modifier = modifier,
+        snackbarHost = { SnackbarHost(snackbarHostState) },
         topBar = {
             TopAppBar(
                 title = { Text(text = uiState.city?.name ?: stringResource(R.string.title_forecast)) },
@@ -105,13 +123,13 @@ private fun ForecastContent(
             CurrentWeatherCard(
                 current = forecast.current,
                 today = forecast.daily.firstOrNull { it.date == today },
-                windSpeedUnit = forecast.settings.windSpeedUnit,
+                settings = forecast.settings,
                 modifier = Modifier.padding(dimensionResource(R.dimen.padding_medium))
             )
         }
         item { SectionTitle(text = stringResource(R.string.section_hourly)) }
         item { HourlyForecastRow(hours = forecast.hourly) }
-        item { SectionTitle(text = stringResource(R.string.section_daily, forecast.daily.size)) }
+        item { SectionTitle(text = pluralStringResource(R.plurals.section_daily, forecast.daily.size, forecast.daily.size)) }
         items(items = forecast.daily, key = { it.date.toString() }) { day ->
             DailyForecastItem(day = day, today = today)
             HorizontalDivider(

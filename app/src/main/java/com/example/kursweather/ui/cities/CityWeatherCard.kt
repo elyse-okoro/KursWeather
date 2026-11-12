@@ -67,7 +67,7 @@ fun CityWeatherCard(
                 )
                 Spacer(modifier = Modifier.width(dimensionResource(R.dimen.padding_small)))
                 Text(
-                    text = temperatureText(summary.current.temperature),
+                    text = temperatureText(summary.current.temperature, summary.settings.temperatureUnit),
                     style = MaterialTheme.typography.displaySmall
                 )
             } else if (item.isLoading) {
@@ -110,4 +110,12 @@ private fun CityWeatherDetails(item: CityWeatherItem) {
             MaterialTheme.colorScheme.onSurfaceVariant
         }
     )
+    if (item.hasError && summary != null) {
+        // на карточке остались прежние числа: говорим, что обновить их не получилось
+        Text(
+            text = stringResource(R.string.message_weather_not_updated),
+            style = MaterialTheme.typography.bodySmall,
+            color = MaterialTheme.colorScheme.error
+        )
+    }
 }

@@ -18,17 +18,21 @@
     <string name="message_no_cities">No cities yet. Add one to see its weather.</string>
     <string name="message_loading_weather">Loading weather…</string>
     <string name="message_weather_unavailable">Weather is unavailable, pull down to refresh</string>
+    <string name="message_weather_not_updated">Could not refresh</string>
     <string name="message_city_removed">%1$s removed</string>
     <string name="message_city_not_found">Nothing found for “%1$s”. Check the spelling or try the English name.</string>
 
     <string name="search_label">City name</string>
-    <string name="search_hint">In English or Russian, for example Izhevsk or Казань</string>
+    <string name="search_hint">In English or Russian, for example Izhevsk or Kazan</string>
     <string name="city_population">Population: %1$s</string>
     <string name="city_coordinates">%1$.2f°, %2$.2f°</string>
     <string name="city_summary">%1$s · %2$s / %3$s</string>
 
     <string name="section_hourly">Next 24 hours</string>
-    <string name="section_daily">%1$d-day forecast</string>
+    <plurals name="section_daily">
+        <item quantity="one">Forecast for %1$d day</item>
+        <item quantity="other">Forecast for %1$d days</item>
+    </plurals>
     <string name="feels_like">Feels like %1$s</string>
     <string name="detail_humidity">Humidity</string>
     <string name="detail_wind">Wind</string>
@@ -39,6 +43,7 @@
     <string name="day_tomorrow">Tomorrow</string>
 
     <string name="temperature_value">%1$s°</string>
+    <string name="temperature_with_unit">%1$s%2$s</string>
     <string name="unit_celsius">°C</string>
     <string name="unit_fahrenheit">°F</string>
     <string name="percent_value">%1$d%%</string>

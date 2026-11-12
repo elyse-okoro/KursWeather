@@ -71,7 +71,6 @@ class CitiesViewModel(
         _uiState.update { state ->
             state.copy(
                 isLoaded = true,
-                settings = settings,
                 cities = cities.map { city ->
                     known[city.id]?.copy(city = city, isLoading = true) ?: CityWeatherItem(city)
                 }

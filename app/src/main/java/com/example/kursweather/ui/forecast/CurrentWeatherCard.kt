@@ -24,7 +24,7 @@ import androidx.compose.ui.res.stringResource
 import com.example.kursweather.R
 import com.example.kursweather.domain.model.CurrentWeather
 import com.example.kursweather.domain.model.DailyForecast
-import com.example.kursweather.domain.model.WindSpeedUnit
+import com.example.kursweather.domain.model.WeatherSettings
 import com.example.kursweather.ui.common.WeatherIcon
 import com.example.kursweather.ui.common.labelRes
 import com.example.kursweather.ui.common.pressureText
@@ -36,7 +36,7 @@ import com.example.kursweather.ui.common.windSpeedText
 fun CurrentWeatherCard(
     current: CurrentWeather,
     today: DailyForecast?,
-    windSpeedUnit: WindSpeedUnit,
+    settings: WeatherSettings,
     modifier: Modifier = Modifier
 ) {
     Card(
@@ -47,7 +47,7 @@ fun CurrentWeatherCard(
             Row(verticalAlignment = Alignment.CenterVertically) {
                 Column(modifier = Modifier.weight(1f)) {
                     Text(
-                        text = temperatureText(current.temperature),
+                        text = temperatureText(current.temperature, settings.temperatureUnit),
                         style = MaterialTheme.typography.displayLarge
                     )
                     Text(
@@ -78,7 +78,7 @@ fun CurrentWeatherCard(
                 WeatherDetail(
                     iconRes = R.drawable.ic_air,
                     label = stringResource(R.string.detail_wind),
-                    value = windSpeedText(current.windSpeed, windSpeedUnit),
+                    value = windSpeedText(current.windSpeed, settings.windSpeedUnit),
                     modifier = Modifier.weight(1f)
                 )
             }

@@ -80,7 +80,6 @@ class CityRepositoryTest {
         assertEquals("Moscow", moscow.name)
         assertEquals("RU", moscow.country)
         assertEquals(10381222L, moscow.population)
-        assertTrue(moscow.isCapital)
     }
 
     @Test
@@ -112,6 +111,20 @@ class CityRepositoryTest {
 
         val firstId = repository.addCity(city)
         val secondId = repository.addCity(city)
+
+        assertEquals(firstId, secondId)
+        assertEquals(1, repository.observeCities().first().size)
+    }
+
+    @Test
+    fun addCity_sameCityWithOtherCoordinates_keepsOneRow() = runTest {
+        enqueueIzhevsk()
+        val fromCityApi = repository.searchCity("Izhevsk").single()
+        // геокодинг отдаёт для того же города координаты центра, а не те, что City
+        val fromGeocoding = fromCityApi.copy(latitude = 56.8667, longitude = 53.2094)
+
+        val firstId = repository.addCity(fromCityApi)
+        val secondId = repository.addCity(fromGeocoding)
 
         assertEquals(firstId, secondId)
         assertEquals(1, repository.observeCities().first().size)

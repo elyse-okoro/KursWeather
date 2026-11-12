@@ -6,6 +6,5 @@ data class FoundCity(
     val country: String,
     val latitude: Double,
     val longitude: Double,
-    val population: Long?,
-    val isCapital: Boolean
+    val population: Long?
 )

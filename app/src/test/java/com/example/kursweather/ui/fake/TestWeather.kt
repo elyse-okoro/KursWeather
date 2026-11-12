@@ -15,8 +15,8 @@ import java.time.LocalTime
 
 /** Готовые данные для тестов ViewModel. */
 object TestWeather {
-    val izhevsk = FoundCity("Izhevsk", "RU", 56.85, 53.2333, 623472, false)
-    val kazan = FoundCity("Kazan", "RU", 55.7887, 49.1221, 1308660, false)
+    val izhevsk = FoundCity("Izhevsk", "RU", 56.85, 53.2333, 623472)
+    val kazan = FoundCity("Kazan", "RU", 55.7887, 49.1221, 1308660)
 
     private val now = LocalDateTime.of(2026, 11, 12, 13, 0)
 
@@ -26,13 +26,13 @@ object TestWeather {
         apparentTemperature = temperature - 3,
         humidity = 89,
         windSpeed = 2.2,
-        windDirection = 190,
-        pressureHpa = 1020.4,
+        pressureHpa = 1002.3,
         condition = WeatherCondition.OVERCAST,
         isDay = true
     )
 
-    fun summary(temperature: Double = 1.8) = WeatherSummary(current(temperature), todayMax = 1.9, todayMin = 0.1)
+    fun summary(settings: WeatherSettings = WeatherSettings(), temperature: Double = 1.8) =
+        WeatherSummary(current(temperature), todayMax = 1.9, todayMin = 0.1, settings = settings)
 
     fun forecast(settings: WeatherSettings) = Forecast(
         current = current(),

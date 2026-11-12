@@ -11,8 +11,7 @@ fun CityDto.toFoundCity(): FoundCity = FoundCity(
     country = country,
     latitude = latitude,
     longitude = longitude,
-    population = population,
-    isCapital = isCapital
+    population = population
 )
 
 fun GeocodingDto.toFoundCity(): FoundCity = FoundCity(
@@ -20,8 +19,7 @@ fun GeocodingDto.toFoundCity(): FoundCity = FoundCity(
     country = country,
     latitude = latitude,
     longitude = longitude,
-    population = population,
-    isCapital = name == countryCapital
+    population = population
 )
 
 fun SavedCityEntity.toCity(): City = City(

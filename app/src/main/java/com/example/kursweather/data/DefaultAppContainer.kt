@@ -49,9 +49,15 @@ class DefaultAppContainer(private val context: Context) : AppContainer {
         DataStoreSettingsRepository(context.settingsDataStore)
     }
 
-    override val isCityApiConfigured: Boolean =
-        BuildConfig.API_NINJAS_KEY.isNotBlank() && BuildConfig.API_NINJAS_KEY != DEFAULT_API_KEY
+    override val isCityApiConfigured: Boolean = BuildConfig.API_NINJAS_KEY.isUsableApiKey()
 }
 
 /** Заглушка из local.defaults.properties: ключ не задан. */
 private const val DEFAULT_API_KEY = "DEFAULT_API_KEY"
+
+/** Печатные символы ASCII: другие в HTTP-заголовок не положить, OkHttp на них падает. */
+private val HEADER_SAFE_CHARS = '!'..'~'
+
+/** Ключ задан и годится для заголовка запроса: не пустой, не заглушка и без посторонних символов. */
+private fun String.isUsableApiKey(): Boolean =
+    isNotBlank() && this != DEFAULT_API_KEY && all { it in HEADER_SAFE_CHARS }

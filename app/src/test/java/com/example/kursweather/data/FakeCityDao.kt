@@ -20,6 +20,9 @@ class FakeCityDao : CityDao {
     override suspend fun findByCoordinates(latitude: Double, longitude: Double): SavedCityEntity? =
         rows.value.firstOrNull { it.latitude == latitude && it.longitude == longitude }
 
+    override suspend fun findByName(name: String, country: String): List<SavedCityEntity> =
+        rows.value.filter { it.name == name && it.country == country }
+
     override suspend fun insert(city: SavedCityEntity): Long {
         if (findByCoordinates(city.latitude, city.longitude) != null) return -1L
         val id = if (city.id == 0L) nextId++ else city.id

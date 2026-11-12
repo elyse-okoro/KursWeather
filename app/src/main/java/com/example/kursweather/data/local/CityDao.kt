@@ -18,6 +18,9 @@ interface CityDao {
     @Query("SELECT * FROM saved_city WHERE latitude = :latitude AND longitude = :longitude LIMIT 1")
     suspend fun findByCoordinates(latitude: Double, longitude: Double): SavedCityEntity?
 
+    @Query("SELECT * FROM saved_city WHERE name = :name AND country = :country")
+    suspend fun findByName(name: String, country: String): List<SavedCityEntity>
+
     /** Возвращает id новой строки или -1, если такой город уже есть. */
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insert(city: SavedCityEntity): Long

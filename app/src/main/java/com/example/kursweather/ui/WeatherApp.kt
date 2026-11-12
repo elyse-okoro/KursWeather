@@ -17,9 +17,12 @@ fun WeatherApp(navController: NavHostController = rememberNavController()) {
     NavHost(navController = navController, startDestination = WeatherRoute.Cities) {
         composable<WeatherRoute.Cities> {
             CitiesScreen(
-                onAddCity = { navController.navigate(WeatherRoute.Search) },
-                onOpenCity = { cityId -> navController.navigate(WeatherRoute.Forecast(cityId)) },
-                onOpenSettings = { navController.navigate(WeatherRoute.Settings) }
+                // launchSingleTop: быстрое двойное нажатие не открывает экран дважды
+                onAddCity = { navController.navigate(WeatherRoute.Search) { launchSingleTop = true } },
+                onOpenCity = { cityId ->
+                    navController.navigate(WeatherRoute.Forecast(cityId)) { launchSingleTop = true }
+                },
+                onOpenSettings = { navController.navigate(WeatherRoute.Settings) { launchSingleTop = true } }
             )
         }
         composable<WeatherRoute.Search> {

@@ -4,5 +4,7 @@ package com.example.kursweather.domain.model
 data class WeatherSummary(
     val current: CurrentWeather,
     val todayMax: Double?,
-    val todayMin: Double?
+    val todayMin: Double?,
+    /** Единицы, в которых пришли эти числа. */
+    val settings: WeatherSettings
 )

@@ -44,6 +44,11 @@ class ForecastViewModel(
         reloadRequests.update { it + 1 }
     }
 
+    /** Экран показал сообщение об ошибке обновления. */
+    fun onErrorShown() {
+        _uiState.update { it.copy(errorRes = null) }
+    }
+
     private suspend fun load(settings: WeatherSettings) {
         _uiState.update { it.copy(isLoading = true, errorRes = null) }
         try {

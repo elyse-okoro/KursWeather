@@ -117,6 +117,9 @@ fun SearchScreen(
     }
 }
 
+/** Ошибки, в которых виноват ключ API, а не сеть и не сервер. */
+private val API_KEY_ERRORS = setOf(R.string.error_api_key_missing, R.string.error_api_key_invalid)
+
 @Composable
 private fun SearchResults(
     state: SearchUiState,
@@ -127,7 +130,7 @@ private fun SearchResults(
     when {
         state.isLoading -> LoadingContent()
         errorRes != null -> MessageContent(
-            iconRes = if (errorRes == R.string.error_no_internet) R.drawable.ic_cloud_off else R.drawable.ic_key,
+            iconRes = if (errorRes in API_KEY_ERRORS) R.drawable.ic_key else R.drawable.ic_cloud_off,
             message = stringResource(errorRes)
         )
         notFoundQuery != null -> MessageContent(

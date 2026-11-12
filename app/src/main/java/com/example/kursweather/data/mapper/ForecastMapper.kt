@@ -21,10 +21,11 @@ fun ForecastResponseDto.toForecast(settings: WeatherSettings): Forecast = Foreca
     settings = settings
 )
 
-fun ForecastResponseDto.toSummary(): WeatherSummary = WeatherSummary(
+fun ForecastResponseDto.toSummary(settings: WeatherSettings): WeatherSummary = WeatherSummary(
     current = current.toCurrentWeather(),
     todayMax = daily?.temperatureMax?.firstOrNull(),
-    todayMin = daily?.temperatureMin?.firstOrNull()
+    todayMin = daily?.temperatureMin?.firstOrNull(),
+    settings = settings
 )
 
 fun CurrentDto.toCurrentWeather(): CurrentWeather = CurrentWeather(
@@ -33,7 +34,6 @@ fun CurrentDto.toCurrentWeather(): CurrentWeather = CurrentWeather(
     apparentTemperature = apparentTemperature,
     humidity = humidity,
     windSpeed = windSpeed,
-    windDirection = windDirection,
     pressureHpa = pressure,
     condition = WeatherCondition.fromWmoCode(weatherCode),
     isDay = isDay == 1

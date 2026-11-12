@@ -14,9 +14,8 @@
   "relative_humidity_2m": "%",
   "weather_code": "wmo code",
   "wind_speed_10m": "m/s",
-  "wind_direction_10m": "°",
-  "pressure_msl": "hPa",
-  "is_day": ""
+  "is_day": "",
+  "surface_pressure": "hPa"
  },
  "current": {
   "time": "2026-11-12T13:00",
@@ -26,9 +25,8 @@
   "relative_humidity_2m": 89,
   "weather_code": 3,
   "wind_speed_10m": 2.24,
-  "wind_direction_10m": 190,
-  "pressure_msl": 1020.4,
-  "is_day": 1
+  "is_day": 1,
+  "surface_pressure": 1002.3
  },
  "hourly_units": {
   "time": "iso8601",

@@ -67,7 +67,10 @@ class CitiesViewModelTest {
         settings.setTemperatureUnit(TemperatureUnit.FAHRENHEIT)
 
         assertEquals(TemperatureUnit.FAHRENHEIT, weather.lastSettings?.temperatureUnit)
-        assertEquals(TemperatureUnit.FAHRENHEIT, viewModel.uiState.value.settings.temperatureUnit)
+        assertEquals(
+            TemperatureUnit.FAHRENHEIT,
+            viewModel.uiState.value.cities.single().summary?.settings?.temperatureUnit
+        )
     }
 
     @Test

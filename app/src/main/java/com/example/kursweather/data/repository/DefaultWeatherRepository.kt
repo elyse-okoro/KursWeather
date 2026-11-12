@@ -42,11 +42,13 @@ class DefaultWeatherRepository(
             forecastHours = null,
             temperatureUnit = settings.temperatureUnit.toApiValue(),
             windSpeedUnit = settings.windSpeedUnit.toApiValue()
-        ).toSummary()
+        ).toSummary(settings)
 
     private companion object {
+        // surface_pressure — давление в самом городе; pressure_msl приведено к уровню моря
+        // и для Ижевска (150 м) завышено на 14 мм рт. ст.
         const val CURRENT_FIELDS = "temperature_2m,apparent_temperature,relative_humidity_2m," +
-            "weather_code,wind_speed_10m,wind_direction_10m,pressure_msl,is_day"
+            "weather_code,wind_speed_10m,surface_pressure,is_day"
         const val HOURLY_FIELDS = "temperature_2m,weather_code,precipitation_probability,is_day"
         const val DAILY_FIELDS = "weather_code,temperature_2m_max,temperature_2m_min," +
             "precipitation_probability_max,sunrise,sunset"

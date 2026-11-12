@@ -19,23 +19,29 @@ private val TIME_FORMAT: DateTimeFormatter = DateTimeFormatter.ofPattern("HH:mm"
 
 /** Температура со знаком, как пишут в прогнозах: «+2°», «−5°», «0°». */
 @Composable
-fun temperatureText(value: Double): String {
+fun temperatureText(value: Double): String =
+    stringResource(R.string.temperature_value, signedNumber(value))
+
+/** Температура с единицей — «+2°C», «+36°F»: по ней видно, какая шкала выбрана в настройках. */
+@Composable
+fun temperatureText(value: Double, unit: TemperatureUnit): String {
+    val unitLabel = stringResource(
+        when (unit) {
+            TemperatureUnit.CELSIUS -> R.string.unit_celsius
+            TemperatureUnit.FAHRENHEIT -> R.string.unit_fahrenheit
+        }
+    )
+    return stringResource(R.string.temperature_with_unit, signedNumber(value), unitLabel)
+}
+
+private fun signedNumber(value: Double): String {
     val rounded = value.roundToInt()
-    val number = when {
+    return when {
         rounded > 0 -> "+$rounded"
         rounded < 0 -> "$MINUS_SIGN${-rounded}"
         else -> "0"
     }
-    return stringResource(R.string.temperature_value, number)
 }
-
-@Composable
-fun temperatureUnitLabel(unit: TemperatureUnit): String = stringResource(
-    when (unit) {
-        TemperatureUnit.CELSIUS -> R.string.unit_celsius
-        TemperatureUnit.FAHRENHEIT -> R.string.unit_fahrenheit
-    }
-)
 
 @Composable
 fun windSpeedText(value: Double, unit: WindSpeedUnit): String = when (unit) {

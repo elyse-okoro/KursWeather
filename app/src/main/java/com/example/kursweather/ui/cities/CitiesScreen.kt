@@ -54,15 +54,17 @@ fun CitiesScreen(
 
     LaunchedEffect(removedCity) {
         if (removedMessage == null) return@LaunchedEffect
-        val result = snackbarHostState.showSnackbar(
-            message = removedMessage,
-            actionLabel = undoLabel,
-            duration = SnackbarDuration.Short
-        )
-        if (result == SnackbarResult.ActionPerformed) {
-            viewModel.undoRemove()
-        } else {
-            viewModel.onRemovedMessageShown()
+        var isUndone = false
+        try {
+            val result = snackbarHostState.showSnackbar(
+                message = removedMessage,
+                actionLabel = undoLabel,
+                duration = SnackbarDuration.Short
+            )
+            isUndone = result == SnackbarResult.ActionPerformed
+        } finally {
+            // срабатывает и когда экран закрыли раньше, чем сообщение исчезло: второй раз его не покажем
+            if (isUndone) viewModel.undoRemove() else viewModel.onRemovedMessageShown()
         }
     }
 

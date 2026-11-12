@@ -10,6 +10,7 @@ import com.example.kursweather.domain.CityNameTransliterator
 import com.example.kursweather.domain.model.City
 import com.example.kursweather.domain.model.FoundCity
 import com.example.kursweather.domain.repository.CityRepository
+import kotlin.math.abs
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
@@ -45,6 +46,12 @@ class DefaultCityRepository(
     }
 
     override suspend fun addCity(city: FoundCity): Long {
+        // City и Geocoding дают немного разные координаты одного города: сверяем ещё и по названию
+        val sameCity = cityDao.findByName(city.name, city.country).firstOrNull { saved ->
+            abs(saved.latitude - city.latitude) < SAME_CITY_DEGREES &&
+                abs(saved.longitude - city.longitude) < SAME_CITY_DEGREES
+        }
+        if (sameCity != null) return sameCity.id
         val id = cityDao.insert(city.toEntity(addedAt = clock()))
         if (id != NOT_INSERTED) return id
         return cityDao.findByCoordinates(city.latitude, city.longitude)?.id
@@ -70,5 +77,8 @@ class DefaultCityRepository(
 
     private companion object {
         const val NOT_INSERTED = -1L
+
+        /** Города с одним названием ближе полуградуса друг к другу — это один и тот же город. */
+        const val SAME_CITY_DEGREES = 0.5
     }
 }
