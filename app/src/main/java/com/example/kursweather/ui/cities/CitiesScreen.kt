@@ -84,7 +84,13 @@ fun CitiesScreen(
         floatingActionButton = {
             ExtendedFloatingActionButton(
                 onClick = onAddCity,
-                icon = { Icon(painter = painterResource(R.drawable.ic_add), contentDescription = null) },
+                // текст расширенной кнопки Material 3 скрывает от TalkBack, поэтому подпись — у значка
+                icon = {
+                    Icon(
+                        painter = painterResource(R.drawable.ic_add),
+                        contentDescription = stringResource(R.string.action_add_city)
+                    )
+                },
                 text = { Text(text = stringResource(R.string.action_add_city)) }
             )
         },
