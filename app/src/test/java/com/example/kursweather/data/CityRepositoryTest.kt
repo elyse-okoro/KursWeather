@@ -38,9 +38,16 @@ class CityRepositoryTest {
         server.shutdown()
     }
 
-    private fun enqueueIzhevsk() {
-        val body = javaClass.classLoader!!.getResource("city_izhevsk.json").readText()
+    /** Настоящие ответы API Ninjas лежат в test/resources. */
+    private fun enqueue(resource: String) {
+        val body = javaClass.classLoader!!.getResource(resource).readText()
         server.enqueue(MockResponse().setResponseCode(200).setBody(body))
+    }
+
+    private fun enqueueIzhevsk() = enqueue("city_izhevsk.json")
+
+    private fun enqueueNothingFound() {
+        server.enqueue(MockResponse().setResponseCode(200).setBody("[]"))
     }
 
     @Test
@@ -54,6 +61,35 @@ class CityRepositoryTest {
         assertEquals("Izhevsk", request.requestUrl!!.queryParameter("name"))
         assertEquals("Izhevsk", found.single().name)
         assertEquals(56.85, found.single().latitude, 0.0001)
+        assertEquals("город нашёлся сразу, геокодинг не нужен", 1, server.requestCount)
+    }
+
+    @Test
+    fun search_englishNameDiffersFromTransliteration_usesGeocoding() = runTest {
+        enqueueNothingFound()
+        enqueue("geocoding_moscow.json")
+
+        val found = repository.searchCity("Москва")
+
+        assertEquals("Moskva", server.takeRequest().requestUrl!!.queryParameter("name"))
+        val geocoding = server.takeRequest()
+        assertEquals("/v1/geocoding", geocoding.requestUrl!!.encodedPath)
+        assertEquals("Москва", geocoding.requestUrl!!.queryParameter("city"))
+        // только лучший вариант: Москва, а не Moscow в Айдахо
+        val moscow = found.single()
+        assertEquals("Moscow", moscow.name)
+        assertEquals("RU", moscow.country)
+        assertEquals(10381222L, moscow.population)
+        assertTrue(moscow.isCapital)
+    }
+
+    @Test
+    fun search_foundNowhere_returnsEmptyList() = runTest {
+        enqueueNothingFound()
+        enqueueNothingFound()
+
+        assertTrue(repository.searchCity("Нигдебург").isEmpty())
+        assertEquals(2, server.requestCount)
     }
 
     @Test

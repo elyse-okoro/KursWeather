@@ -1,0 +1,47 @@
+[
+  {
+    "name": "Moscow",
+    "latitude": 55.7505412,
+    "longitude": 37.6174782,
+    "country": "RU",
+    "state": "Moscow",
+    "population": 10381222,
+    "capital": "Moscow"
+  },
+  {
+    "name": "Moscow",
+    "latitude": 46.7323875,
+    "longitude": -117.000165,
+    "country": "US",
+    "state": "Idaho",
+    "population": 25060,
+    "capital": "Washington"
+  },
+  {
+    "name": "Berkarar şäherçesi",
+    "latitude": 37.4150582,
+    "longitude": 60.4266397,
+    "country": "TM",
+    "state": "Ahal Region",
+    "population": 9804,
+    "capital": "Ashgabat"
+  },
+  {
+    "name": "Berkarar obasy",
+    "latitude": 37.41866695,
+    "longitude": 60.42703721312893,
+    "country": "TM",
+    "state": "Ahal Region",
+    "population": 9804,
+    "capital": "Ashgabat"
+  },
+  {
+    "name": "Moskwa",
+    "latitude": 51.8158099,
+    "longitude": 19.6573685,
+    "country": "PL",
+    "state": "Łódź Voivodeship",
+    "population": 12289,
+    "capital": "Warsaw"
+  }
+]

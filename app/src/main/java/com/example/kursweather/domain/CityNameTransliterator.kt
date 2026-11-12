@@ -14,8 +14,6 @@ object CityNameTransliterator {
         'ъ' to "", 'ы' to "y", 'ь' to "", 'э' to "e", 'ю' to "yu", 'я' to "ya"
     )
 
-    fun hasCyrillic(text: String): Boolean = text.any { it.lowercaseChar() in letters }
-
     fun toLatin(text: String): String = buildString {
         for (char in text) {
             val latin = letters[char.lowercaseChar()]

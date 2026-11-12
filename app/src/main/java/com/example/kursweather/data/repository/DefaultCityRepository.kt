@@ -33,13 +33,15 @@ class DefaultCityRepository(
     override suspend fun searchCity(query: String): List<FoundCity> {
         val text = query.trim()
         if (text.isEmpty()) return emptyList()
-        var found = cityService.findCity(CityNameTransliterator.toLatin(text))
-        if (found.isEmpty() && CityNameTransliterator.hasCyrillic(text)) {
-            found = cityService.findCity(text)
+        val cities = cityService.findCity(CityNameTransliterator.toLatin(text))
+        if (cities.isNotEmpty()) {
+            return cities
+                .map { it.toFoundCity() }
+                .distinctBy { it.latitude to it.longitude }
         }
-        return found
-            .map { it.toFoundCity() }
-            .distinctBy { it.latitude to it.longitude }
+        // у многих городов английское название не совпадает с транслитом: Москва — Moscow, не Moskva;
+        // геокодинг понимает название так, как его набрал пользователь, и первым ставит лучший вариант
+        return cityService.geocode(text).take(1).map { it.toFoundCity() }
     }
 
     override suspend fun addCity(city: FoundCity): Long {

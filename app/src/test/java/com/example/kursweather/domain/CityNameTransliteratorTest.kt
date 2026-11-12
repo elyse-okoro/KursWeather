@@ -1,8 +1,6 @@
 package com.example.kursweather.domain
 
 import org.junit.Assert.assertEquals
-import org.junit.Assert.assertFalse
-import org.junit.Assert.assertTrue
 import org.junit.Test
 
 class CityNameTransliteratorTest {
@@ -18,7 +16,6 @@ class CityNameTransliteratorTest {
     @Test
     fun latinNames_stayAsTyped() {
         assertEquals("Kazan", CityNameTransliterator.toLatin("Kazan"))
-        assertFalse(CityNameTransliterator.hasCyrillic("Saint Petersburg"))
-        assertTrue(CityNameTransliterator.hasCyrillic("Пермь"))
+        assertEquals("Saint Petersburg", CityNameTransliterator.toLatin("Saint Petersburg"))
     }
 }

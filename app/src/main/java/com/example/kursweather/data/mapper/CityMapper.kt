@@ -2,6 +2,7 @@ package com.example.kursweather.data.mapper
 
 import com.example.kursweather.data.local.SavedCityEntity
 import com.example.kursweather.data.remote.dto.CityDto
+import com.example.kursweather.data.remote.dto.GeocodingDto
 import com.example.kursweather.domain.model.City
 import com.example.kursweather.domain.model.FoundCity
 
@@ -12,6 +13,15 @@ fun CityDto.toFoundCity(): FoundCity = FoundCity(
     longitude = longitude,
     population = population,
     isCapital = isCapital
+)
+
+fun GeocodingDto.toFoundCity(): FoundCity = FoundCity(
+    name = name,
+    country = country,
+    latitude = latitude,
+    longitude = longitude,
+    population = population,
+    isCapital = name == countryCapital
 )
 
 fun SavedCityEntity.toCity(): City = City(
